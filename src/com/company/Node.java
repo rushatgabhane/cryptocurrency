@@ -13,6 +13,9 @@ public class Node {
         this.prevHash = prevHash;
         this.data = data;
         this.timestamp = new Date().getTime();
-        this.hash = Hash.getHash(data + prevHash + Long.toString(timestamp));
+        this.hash = calculateHash();
+    }
+    public String calculateHash(){
+        return Hash.getHash(data + prevHash + Long.toString(timestamp));
     }
 }
