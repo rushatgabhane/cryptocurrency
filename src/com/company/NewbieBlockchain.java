@@ -21,6 +21,7 @@ public class NewbieBlockchain {
     }
 
     public static void main(String[] args) {
+
         blockchain.add(new Node("0", "First Node"));
         blockchain.add(new Node(blockchain.get(blockchain.size()-1).hash, "Second Node"));
         blockchain.add(new Node(blockchain.get(blockchain.size()-1).hash, "Third Node"));
