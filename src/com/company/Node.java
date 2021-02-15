@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Node {
     public String hash;
-
     public String prevHash;
+
     private String data;
     private long timestamp;
 
@@ -13,5 +13,6 @@ public class Node {
         this.prevHash = prevHash;
         this.data = data;
         this.timestamp = new Date().getTime();
+        this.hash = Hash.getHash(data + prevHash + Long.toString(timestamp));
     }
 }
