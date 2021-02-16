@@ -59,10 +59,6 @@ public class Transaction {
         for(TransactionInput i : inputs) {
             i.UTXO = PropertyBlockchain.UTXOs.get(i.transactionOutputID);
         }
-        if(getInputsValue() < PropertyBlockchain.minimumTransaction) {
-            System.out.println("Transaction inputs too small " + getInputsValue());
-            return false;
-        }
 
         // generate transaction outputs
         float balance = getInputsValue() - value;

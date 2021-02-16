@@ -29,7 +29,7 @@ public class Wallet {
             throw new RuntimeException(e);
         }
     }
-    public Transaction sendFund(PublicKey _receiver, float value) {
+    public Transaction sendFunds(PublicKey _receiver, float value) {
         if(getBalance() < value) {
             System.out.println("Not enough funds to send transaction. Transaction aborted.");
             return null;
