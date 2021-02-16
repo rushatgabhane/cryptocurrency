@@ -29,4 +29,17 @@ public class Node {
         }
         System.out.println("Block mined " + hash);
     }
+    public boolean addTransaction(Transaction transaction) {
+        //process transaction and check if valid, unless block is genesis block then ignore.
+        if(transaction == null) return false;
+        if((prevHash != "0")) {
+            if((!transaction.processTransaction())) {
+                System.out.println("Transaction failed to process. Transaction discarded.");
+                return false;
+            }
+        }
+        transactions.add(transaction);
+        System.out.println("Transaction Successfully added to block");
+        return true;
+    }
 }
