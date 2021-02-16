@@ -49,4 +49,55 @@ public class Transaction {
                 );
     }
 
+    // returns true if transaction is possible
+    public boolean processTransaction() {
+        if(!verifySignature()) {
+            System.out.println("Transaction signature failed to verify");
+            return false;
+        }
+        // gather all transaction inputs
+        for(TransactionInput i : inputs) {
+            i.UTXO = PropertyBlockchain.UTXOs.get(i.transactionOutputID);
+        }
+        if(getInputsValue() < PropertyBlockchain.minimumTransaction) {
+            System.out.println("Transaction inputs too small " + getInputsValue());
+            return false;
+        }
+
+        // generate transaction outputs
+        float balance = getInputsValue() - value;
+        transactionID = calculateHash();
+        outputs.add(new TransactionOutput(this.receiver, value, transactionID));
+        outputs.add(new TransactionOutput(this.sender, balance, transactionID));
+
+        //add outputs to Unspent list
+        for(TransactionOutput o : outputs) {
+            PropertyBlockchain.UTXOs.put(o.ID , o);
+        }
+        //remove transaction inputs from UTXO lists as spent:
+        for(TransactionInput i : inputs) {
+            if(i.UTXO == null) continue; //if Transaction can't be found skip it
+            PropertyBlockchain.UTXOs.remove(i.UTXO.ID);
+        }
+
+        return true;
+    }
+    // returns sum of inputs(UTXOs) values
+    public float getInputsValue() {
+        float total = 0;
+        for(TransactionInput i : inputs) {
+            if(i.UTXO == null) continue; //if Transaction can't be found skip it
+            total += i.UTXO.value;
+        }
+        return total;
+    }
+
+    // returns sum of outputs:
+    public float getOutputsValue() {
+        float total = 0;
+        for(TransactionOutput o : outputs) {
+            total += o.value;
+        }
+        return total;
+    }
 }

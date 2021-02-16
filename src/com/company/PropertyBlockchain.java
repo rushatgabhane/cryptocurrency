@@ -2,11 +2,14 @@ package com.company;
 
 import java.security.Security;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.google.gson.GsonBuilder;
 
 public class PropertyBlockchain {
 
     public static ArrayList <Node> blockchain = new ArrayList<Node>();
+    public static HashMap<String, TransactionOutput> UTXOs = new HashMap<String,TransactionOutput>(); // list of all unspent transactions.
     public static int difficulty = 5;
 
     public static Wallet walletA;

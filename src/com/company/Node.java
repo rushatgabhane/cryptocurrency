@@ -1,10 +1,12 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Node {
     public String hash;
     public String prevHash;
+    public ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 
     private String data;
     private long timestamp;
