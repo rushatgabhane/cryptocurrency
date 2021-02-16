@@ -1,4 +1,3 @@
-// 20184147 - Rushat Gabhane - CSC
 package com.company;
 
 import java.security.PublicKey;
