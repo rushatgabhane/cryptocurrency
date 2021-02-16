@@ -11,9 +11,10 @@ public class Wallet {
     }
     public void generateKeyPair(){
         try {
-            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ECDSA", "BC");
+            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ECDSA","BC");
             SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
             ECGenParameterSpec ecSpec = new ECGenParameterSpec("prime192v1");
+
             keyGen.initialize(ecSpec, random);
             KeyPair keyPair = keyGen.generateKeyPair();
 

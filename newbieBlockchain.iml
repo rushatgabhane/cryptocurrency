@@ -40,6 +40,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="bouncycastle:bcprov-jdk14:140" level="project" />
+    <orderEntry type="library" name="bouncycastle:bcprov-jdk16:136" level="project" />
   </component>
 </module>
