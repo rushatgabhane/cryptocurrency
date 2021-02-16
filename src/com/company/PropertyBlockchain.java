@@ -3,7 +3,7 @@ package com.company;
 import java.util.ArrayList;
 import com.google.gson.GsonBuilder;
 
-public class NewbieBlockchain {
+public class PropertyBlockchain {
 
     public static ArrayList <Node> blockchain = new ArrayList<Node>();
     public static int difficulty = 5;

@@ -17,7 +17,7 @@ public class Node {
         this.hash = calculateHash();
     }
     public String calculateHash(){
-        return Hash.getHash(data + prevHash + Long.toString(timestamp) + Integer.toString(nonce));
+        return StringUtil.getHash(data + prevHash + Long.toString(timestamp) + Integer.toString(nonce));
     }
     public void mineBlock(int difficulty){
         String target = new String(new char[difficulty]).replace('\0', '0');
