@@ -1,3 +1,4 @@
+// 20184147 - Rushat Gabhane - CSC
 package com.company;
 
 import com.google.gson.GsonBuilder;
@@ -19,6 +20,7 @@ public class PropertyBlockchain {
     public static Wallet regulatoryAuthority;
     public static Wallet walletAlice;
     public static Wallet walletBob;
+    public static Wallet walletCathie;
 
     public static void main(String[] args) {
 
@@ -28,6 +30,7 @@ public class PropertyBlockchain {
         regulatoryAuthority = new Wallet();
         walletAlice = new Wallet();
         walletBob = new Wallet();
+        walletCathie = new Wallet();
 
         // hardcode 100% ownership of property to mediator
         genesisTransaction = new Transaction(regulatoryAuthority.publicKey, regulatoryAuthority.publicKey, 100f, null);
@@ -45,30 +48,31 @@ public class PropertyBlockchain {
         genesis.addTransaction(genesisTransaction);
         addNode(genesis);
 
-        System.out.println("reg: " + regulatoryAuthority.getBalance());
+        System.out.println("Regulatory Authority owns: " + regulatoryAuthority.getBalance() + "% of the property");
 
 
         //testing
-        Node block1 = new Node(genesis.hash, "Tom");
-        System.out.println("\nAlice's balance is: " + walletAlice.getBalance());
-        System.out.println("\nAlice is Attempting to send shares (40%) to Bob...");
-        block1.addTransaction(walletAlice.sendFunds(walletBob.publicKey, 40f));
-        addNode(block1);
-        System.out.println("\nAlice's balance is: " + walletAlice.getBalance());
-        System.out.println("Bob's balance is: " + walletBob.getBalance());
+        Node Node1 = new Node(genesis.hash, "Regulatory Authority");
+        System.out.println("\nAlice's ownership is: " + walletAlice.getBalance() + "%");
+        System.out.println("\nAlice bought the property. Regulatory Authority transferred 100% ownership to Alice...");
+        Node1.addTransaction(regulatoryAuthority.sendFunds(walletAlice.publicKey, 100f));
+        addNode(Node1);
+        System.out.println("\nAlice's ownership is: " + walletAlice.getBalance() + "%");
 
-        Node block2 = new Node(block1.hash, "Alice");
-        System.out.println("\nAlice Attempting to send more funds (300%) than it has...");
-        block2.addTransaction(walletAlice.sendFunds(walletBob.publicKey, 300f));
-        addNode(block2);
-        System.out.println("\nAlice's balance is: " + walletAlice.getBalance());
-        System.out.println("Bob's balance is: " + walletBob.getBalance());
+        Node Node2 = new Node(Node1.hash, "Alice to Bob");
+        System.out.println("\nAlice is selling (40%) to Bob...");
+        Node2.addTransaction(walletAlice.sendFunds( walletBob.publicKey, 40f));
+        System.out.println("\nAlice's ownership is: " + walletAlice.getBalance() + "%");
+        System.out.println("Bob's ownership is: " + walletBob.getBalance() + "%");
+        addNode(Node2);
 
-        Node block3 = new Node(block2.hash, "Bob");
-        System.out.println("\nBob is Attempting to send funds (20%) to Alice...");
-        block3.addTransaction(walletBob.sendFunds( walletAlice.publicKey, 20));
-        System.out.println("\nAlice's balance is: " + walletAlice.getBalance());
-        System.out.println("Bob's balance is: " + walletBob.getBalance());
+        Node Node3 = new Node(Node2.hash, "Bob to Cathie");
+        System.out.println("\nBob is selling (10%) stake to Cathie...");
+        Node2.addTransaction(walletBob.sendFunds( walletCathie.publicKey, 10f));
+        System.out.println("\nAlice's ownership is: " + walletAlice.getBalance() + "%");
+        System.out.println("Bob's ownership is: " + walletBob.getBalance() + "%");
+        System.out.println("Cathie's ownership is: " + walletCathie.getBalance() + "%");
+        addNode(Node3);
 
         isBlockchainValid();
 
